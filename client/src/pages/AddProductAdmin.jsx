@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
-
+import { useTranslation } from "react-i18next";
 import NavbarAdmin from "../components/NavbarAdmin";
 
 import { API } from "../config/api";
 
 export default function AddProductAdmin() {
   console.clear();
+  const { t } = useTranslation();
   const title = "Add Product";
   document.title = "WaysBucks | " + title;
 
@@ -26,7 +27,6 @@ export default function AddProductAdmin() {
       [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value,
     });
 
-    // Create image url for preview
     if (e.target.type === "file") {
       let url = URL.createObjectURL(e.target.files[0]);
       setPreview(url);
@@ -47,8 +47,6 @@ export default function AddProductAdmin() {
       formData.set("image", form.image[0], form.image[0].name);
       formData.set("name", form.name);
       formData.set("price", form.price);
-
-      console.log(form);
 
       const response = await API.post("/beverage", formData, config);
       console.log(response);
@@ -71,27 +69,27 @@ export default function AddProductAdmin() {
           <Col xs="1"></Col>
           <Col xs="6">
             <form onSubmit={handleSubmit}>
-              <h3 className="text-red fw-9">Add Product</h3>
+              <h3 className="text-red fw-9">{t('add_product')}</h3>
               <div className="form-group my-4 form-red" controlid="formGroupName">
-                <input className="form-control" type="text" placeholder="Product Name" name="name" onChange={handleChange} />
+                <input className="form-control" type="text" placeholder={t('prod_name')} name="name" onChange={handleChange} />
               </div>
               <div className="form-group input-group my-4 form-red" controlid="formGroupPrice">
                 <span class="input-group-text">Rp</span>
                 <input
-                  type="number" placeholder="Price" name="price" onChange={handleChange} className="form-control" />
+                  type="number" placeholder={t('price')} name="price" onChange={handleChange} className="form-control" />
               </div>
               <div className="form-group my-4 form-red" controlid="formGroupFile">
                 <input type="file" id="upload" name="image" onChange={handleChange} className="form-control" />
               </div>
               <div className="d-grid gap-2 mt-4">
                 <Button type="submit" className="form-control btn btn-red" size="md">
-                  Add Product
+                  {t('save')}
                 </Button>
               </div>
             </form>
             <div className="mt-4">
               <Button variant="secondary" className="form-control btn" size="sm" onClick={handleCancel}>
-                Cancel
+                {t('cancel')}
               </Button>
             </div>
           </Col>

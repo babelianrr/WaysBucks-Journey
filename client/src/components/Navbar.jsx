@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-
+import LangSelector from "../LangSelector";
 import { UserContext } from "../context/userContext";
 
 import CartBadge from "../components/badge/CartBadge";
@@ -20,6 +21,7 @@ export default function Navbar() {
   const [profile, setProfile] = useState({});
 
   let history = useHistory();
+  const { t } = useTranslation();
 
   const logout = () => {
     console.log(state);
@@ -50,6 +52,7 @@ export default function Navbar() {
             <Link to="/">
               <img src={logo} alt="logo" style={{ width: '60px' }} />
             </Link>
+            <LangSelector />
             <ul className="d-flex flex-row align-items-center navbar-nav">
               <Link to="/cart">
                 <li className="mx-3 nav-item position-relative">
@@ -66,7 +69,7 @@ export default function Navbar() {
                     <li>
                       <div className="text-center">
                         <div className="dropdown-item nav-link">
-                          <span className="text-red">{user} <span className="fw-9">My Profile</span></span>
+                          <span className="text-red">{user} <span className="fw-9">{t('my_profile')}</span></span>
                         </div>
                       </div>
                     </li>
@@ -74,7 +77,7 @@ export default function Navbar() {
                   <li><hr className="dropdown-divider" /></li>
                   <li className="text-center">
                     <div className="dropdown-item nav-link" onClick={logout}>
-                      <span className="text-red">{logoutIcon} <span className="fw-9">Log Out</span></span>
+                      <span className="text-red">{logoutIcon} <span className="fw-9">{t('logout')}</span></span>
                     </div>
                   </li>
                 </ul>

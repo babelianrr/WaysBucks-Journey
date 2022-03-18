@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-
+import "./i18nextConfig";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -15,11 +15,13 @@ favicon.setAttribute("href", Favicon);
 
 ReactDOM.render(
   <React.StrictMode>
-    <UserContextProvider>
-      <Router>
-        <App />
-      </Router>
-    </UserContextProvider>
+    <Suspense fallback={<span>Loading...</span>}>
+      <UserContextProvider>
+        <Router>
+          <App />
+        </Router>
+      </UserContextProvider>
+    </Suspense>
   </React.StrictMode>,
   document.getElementById("root")
 );

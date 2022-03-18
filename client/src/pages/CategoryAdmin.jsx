@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";
 import { useHistory } from "react-router";
 import rupiahFormat from "rupiah-format";
@@ -12,6 +13,7 @@ import imgEmpty from "../assets/empty.svg";
 import { API } from "../config/api";
 
 export default function CategoryAdmin() {
+  const { t } = useTranslation();
   let history = useHistory();
 
   const title = "Toppings";
@@ -88,7 +90,7 @@ export default function CategoryAdmin() {
           </Col>
           <Col xs="6" className="text-end">
             <Button onClick={addCategory} className="btn-success" style={{ width: "200px" }}>
-              Add Topping
+              {t('add_topping')}
             </Button>
           </Col>
           <Col xs="12">
@@ -100,10 +102,10 @@ export default function CategoryAdmin() {
                       <th width="2%" className="align-middle text-center">
                         No.
                       </th>
-                      <th className="align-middle text-center">Photo</th>
-                      <th className="align-middle text-center">Topping Name</th>
-                      <th className="align-middle text-center">Price</th>
-                      <th className="align-middle text-center">Action</th>
+                      <th className="align-middle text-center">{t('image')}</th>
+                      <th className="align-middle text-center">{t('top_name')}</th>
+                      <th className="align-middle text-center">{t('price')}</th>
+                      <th className="align-middle text-center">{t('action')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -137,7 +139,7 @@ export default function CategoryAdmin() {
                               className="btn-sm btn-success me-2"
                               style={{ width: "135px" }}
                             >
-                              Edit
+                              {t('update')}
                             </Button>
                             <Button
                               onClick={() => {
@@ -146,7 +148,7 @@ export default function CategoryAdmin() {
                               className="btn-sm btn-danger"
                               style={{ width: "135px" }}
                             >
-                              Delete
+                              {t('delete')}
                             </Button>
                           </td>
                         </tr>
@@ -158,7 +160,7 @@ export default function CategoryAdmin() {
             ) : (
               <div className="text-center pt-5">
                 <img src={imgEmpty} className="img-fluid" style={{ width: "40%" }} alt="empty" />
-                <div className="mt-3">No data product</div>
+                <div className="mt-3">{t('no_data')}</div>
               </div>
             )}
           </Col>

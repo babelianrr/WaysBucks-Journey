@@ -1,19 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router";
 import rupiahFormat from "rupiah-format";
 import { UserContext } from "../context/userContext";
-
 import trash from '../assets/trash.svg';
 import bill from '../assets/bill.svg';
 import imgEmpty from "../assets/empty.svg";
-
 import Navbar from "../components/Navbar";
 import DeleteData from "../components/modal/DeleteData";
-
 import { API } from "../config/api";
 
 export default function Cart() {
+  const { t } = useTranslation();
   const title = "Cart";
   document.title = "WaysBucks | " + title;
 
@@ -59,9 +58,7 @@ export default function Cart() {
   const getTransactions = async () => {
     try {
       const response = await API.get("/transaction/" + state.user.id);
-
       setTransactions(response.data.data.transactions);
-
       setForm({
         ...form,
         userId: transactions.userId,
@@ -107,11 +104,8 @@ export default function Cart() {
       role: ""
     }
   };
-
   const lastIndex = transactions.length - 1;
-
   trx = transactions[lastIndex];
-
   const [form, setForm] = useState({
     userId: null,
     name: "",
@@ -139,9 +133,7 @@ export default function Cart() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-
       const status = "Waiting";
-
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -207,8 +199,8 @@ export default function Cart() {
               <div className="row">
                 <div className="col-1"></div>
                 <div className="col-7">
-                  <h3 className="text-red fw-9">My Shopping Cart</h3>
-                  <p className="text-red fs-18 mt-3">Please review your order.</p>
+                  <h3 className="text-red fw-9">{t('checkout')}</h3>
+                  <p className="text-red fs-18 mt-3">{t('please_review')}</p>
                   <hr className="hr-brown" />
                   <div className="row my-4">
                     <div className="col-3">
@@ -219,7 +211,7 @@ export default function Cart() {
                       <p className="text-red fs-14"><strong>Topping:</strong> {trx.toppings.name}</p>
                     </div>
                     <div className="col-3 py-3 text-end">
-                      <p className="text-red fw-9">{rupiahFormat.convert(trx.price)}</p>
+                      <p className="text-red fw-9"><strong>{t('order_date')}:</strong>{rupiahFormat.convert(trx.price)}</p>
                       <button className="btn btn-sm btn-light" onClick={() => { handleDelete(trx.id); }}>
                         <img src={trash} alt="trash" />
                       </button>
@@ -253,7 +245,7 @@ export default function Cart() {
                     <div className="col-5 p-3">
                       <div className="bill">
                         <img src={bill} alt="" className="img-fluid mb-2" />
-                        <p className="text-red fs-14">Attachment of Transaction</p>
+                        <p className="text-red fs-14">{t('attachment')}</p>
                       </div>
                     </div>
                   </div>
@@ -267,30 +259,30 @@ export default function Cart() {
                     <input type="hidden" name="price" onChange={handleChange} value={totalPrice(form.qty, trx.price)} />
                     <div className="form-group mb-3 form-red form-floating">
                       <input className="form-control" type="text" name="name" onChange={handleChange} value={state.user.name} id="formGroupName" />
-                      <label htmlFor="formGroupName">Name</label>
+                      <label htmlFor="formGroupName">{t('name')}</label>
                     </div>
                     <div className="form-group mb-3 form-red form-floating">
                       <input className="form-control" type="email" name="email" onChange={handleChange} value={state.user.email} id="formGroupEmail" />
-                      <label htmlFor="formGroupEmail">Email</label>
+                      <label htmlFor="formGroupEmail">{t('email')}</label>
                     </div>
                     <div className="form-group mb-3 form-red form-floating" >
                       <input className="form-control" type="text" name="phone" onChange={handleChange} id="formGroupPhoneNumber" />
-                      <label htmlFor="formGroupPhoneNumber">Phone Number</label>
+                      <label htmlFor="formGroupPhoneNumber">{t('phone')}</label>
                     </div>
                     <div className="form-group mb-3 form-red form-floating" >
                       <textarea className="form-control form-textarea" name="address" onChange={handleChange} id="formGroupTextarea"></textarea>
-                      <label htmlFor="formGroupTextarea">Address</label>
+                      <label htmlFor="formGroupTextarea">{t('address')}</label>
                     </div>
                     <div className="form-group mb-3 form-red form-floating">
                       <input className="form-control" type="text" name="postal" onChange={handleChange} id="formGroupPostalCode" />
-                      <label htmlFor="formGroupPostalCode">Postal Code</label>
+                      <label htmlFor="formGroupPostalCode">{t('postal_code')}</label>
                     </div>
                     <div className="form-group mb-3">
-                      <button className="form-control btn btn-red" type="submit">Place Order</button>
+                      <button className="form-control btn btn-red" type="submit">{t('place_order')}</button>
                     </div>
                     <div className="mt-1">
                       <Button variant="secondary" className="form-control btn" size="sm" onClick={handleCancel}>
-                        Cancel
+                        {t('cancel')}
                       </Button>
                     </div>
                   </div>
@@ -301,12 +293,12 @@ export default function Cart() {
             <>
               <div className="col-1"></div>
               <div className="col-10">
-                <h3 className="text-red fw-9">My Shopping Cart</h3>
-                <p className="text-red fs-18 mt-3">Please review your order.</p>
+                <h3 className="text-red fw-9">{t('checkout')}</h3>
+                <p className="text-red fs-18 mt-3">{t('please_review')}</p>
                 <hr className="hr-brown" />
                 <div className="text-center pt-5">
                   <img src={imgEmpty} className="img-fluid" style={{ width: "40%" }} alt="empty" />
-                  <div className="mt-3">No Transactions</div>
+                  <div className="mt-3">{t('no_trx')}</div>
                 </div>
               </div>
               <div className="col-1"></div>

@@ -2,10 +2,11 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import { useHistory } from "react-router-dom";
 import { Alert } from "react-bootstrap";
-
+import { useTranslation } from 'react-i18next';
 import { API } from "../../config/api";
 
 export default function Login() {
+  const { t } = useTranslation();
   let history = useHistory();
 
   const title = "Login";
@@ -32,40 +33,28 @@ export default function Login() {
     try {
       e.preventDefault();
 
-      // Configuration
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
 
-      // Data body
       const body = JSON.stringify(form);
 
-      // Insert data for login process
       const response = await API.post("/login", body, config);
 
-      // Checking process
       if (response?.status === 200) {
-        // Send data to useContext
         dispatch({
           type: "LOGIN_SUCCESS",
           payload: response.data.data,
         });
 
-        // Status check
         if (response.data.data.role === "admin") {
           history.push("/transaction-admin");
         } else {
           history.push("/");
         }
 
-        const alert = (
-          <Alert variant="success" className="py-1">
-            Login success
-          </Alert>
-        );
-        setMessage(alert);
       }
     } catch (error) {
       const alert = (
@@ -81,7 +70,7 @@ export default function Login() {
   return (
     <div>
       <div className="container">
-        <h1 className="mb-4 text-red fw-9">Login</h1>
+        <h1 className="mb-4 text-red fw-9">{t('login')}</h1>
         {message && message}
         <form onSubmit={handleSubmit}>
           <div className="form-group mb-3 form-red">
@@ -90,7 +79,7 @@ export default function Login() {
               type="email"
               name="email"
               id="email"
-              placeholder="Email"
+              placeholder={t('email')}
               value={email}
               onChange={handleChange}
             />
@@ -101,14 +90,14 @@ export default function Login() {
               type="password"
               name="password"
               id="password"
-              placeholder="Password"
+              placeholder={t('password')}
               value={password}
               onChange={handleChange}
             />
           </div>
           <div className="form-group mb-3">
             <button className="form-control btn btn-red">
-              Log In
+              {t('login')}
             </button>
           </div>
         </form>
