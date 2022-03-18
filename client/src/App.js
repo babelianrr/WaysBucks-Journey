@@ -20,9 +20,6 @@ import AddCategoryAdmin from "./pages/AddCategoryAdmin";
 import AddProductAdmin from "./pages/AddProductAdmin";
 import UpdateProductAdmin from "./pages/UpdateProductAdmin";
 import TransactionAdmin from "./pages/TransactionAdmin";
-import AccTrxAdmin from "./pages/AccTrxAdmin";
-import DecTrxAdmin from "./pages/DecTrxAdmin";
-
 import { API, setAuthToken } from "./config/api";
 
 if (localStorage.token) {
@@ -93,8 +90,6 @@ function App() {
       <Route path="/add-topping" component={AddCategoryAdmin} />
       <Route path="/add-product" component={AddProductAdmin} />
       <Route path="/update-product/:id" component={UpdateProductAdmin} />
-      <Route path="/acc-transaction/:id" component={AccTrxAdmin} />
-      <Route path="/dec-transaction/:id" component={DecTrxAdmin} />
     </Switch>
   );
 }

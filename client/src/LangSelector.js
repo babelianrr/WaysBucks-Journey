@@ -12,8 +12,12 @@ const LangSelector = () => {
 
   return (
     <div onChange={changeLanguage}>
-      <label className="me-3"><input type="radio" value="en" name="language" checked={selectedLang === 'en'} /> English</label>
-      <label><input type="radio" value="id" name="language" checked={selectedLang === 'id'} /> Bahasa Indonesia</label>
+      <label htmlFor='language'>
+        <select className="form-select form-select-sm" name="language" id="language">
+          <option value="en">English</option>
+          <option value="id">Bahasa Indonesia</option>
+        </select>
+      </label>
     </div>
   )
 }
