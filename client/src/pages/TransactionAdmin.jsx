@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";
 import ShowMoreText from "react-show-more-text";
 import dateFormat from "dateformat";
 import rupiahFormat from "rupiah-format";
-
 import NavbarAdmin from "../components/NavbarAdmin";
 import ApproveOrder from "../components/modal/ApproveOrder";
 import DeclineOrder from "../components/modal/DeclineOrder";
-
 import imgEmpty from "../assets/empty.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +17,7 @@ const checkIcon = <FontAwesomeIcon icon={faCheckCircle} />
 const uncheckIcon = <FontAwesomeIcon icon={faTimesCircle} />
 
 export default function TransactionAdmin() {
+  const { t } = useTranslation();
   const title = "Transactions";
   document.title = "WaysBucks | " + title;
 
@@ -134,10 +134,10 @@ export default function TransactionAdmin() {
               return (
                 <>
                   <button onClick={() => { handleApprove(props.id) }} className="btn btn-sm btn-success me-1">
-                    Approve
+                    {t('approve')}
                   </button>
                   <button onClick={() => { handleDecline(props.id) }} className="btn btn-sm btn-danger ms-1">
-                    Decline
+                    {t('decline')}
                   </button>
                 </>
               )
@@ -174,31 +174,31 @@ export default function TransactionAdmin() {
             if (props.status == "Waiting") {
               return (
                 <>
-                  <span className="text-warning fw-9">{props.status}</span>
+                  <span className="text-warning fw-9">{t('waiting')}</span>
                 </>
               )
             } else if (props.status == "Delivering") {
               return (
                 <>
-                  <span className="text-info fw-9">{props.status}</span>
+                  <span className="text-info fw-9">{t('delivering')}</span>
                 </>
               )
             } else if (props.status == "Completed") {
               return (
                 <>
-                  <span className="text-success fw-9">{props.status}</span>
+                  <span className="text-success fw-9">{t('completed')}</span>
                 </>
               )
             } else if (props.status == "Declined") {
               return (
                 <>
-                  <span className="text-danger fw-9">{props.status}</span>
+                  <span className="text-danger fw-9">{t('declined')}</span>
                 </>
               )
             } else {
               return (
                 <>
-                  <span className="text-danger fw-9">{props.status}</span>
+                  <span className="text-danger fw-9">{t('canceled')}</span>
                 </>
               )
             }
@@ -214,7 +214,7 @@ export default function TransactionAdmin() {
       <Container className="py-5">
         <Row>
           <Col xs="6">
-            <div className="h2 mb-4 fw-9 text-red">Customer Transactions</div>
+            <div className="h2 mb-4 fw-9 text-red">{t('cust_trx')}</div>
           </Col>
           <Col xs="12">
             {trx.length !== 0 ? (
@@ -225,12 +225,12 @@ export default function TransactionAdmin() {
                       <th width="1%" className="align-middle text-center">
                         No.
                       </th>
-                      <th scope="col" className="align-middle text-center">Customer Name</th>
-                      <th scope="col" className="align-middle text-center">Delivery Address</th>
-                      <th scope="col" className="align-middle text-center">Order Date</th>
-                      <th scope="col" className="align-middle text-center">Order Amount</th>
+                      <th scope="col" className="align-middle text-center">{t('cust_name')}</th>
+                      <th scope="col" className="align-middle text-center">{t('delivery_address')}</th>
+                      <th scope="col" className="align-middle text-center">{t('order_date')}</th>
+                      <th scope="col" className="align-middle text-center">{t('order_amount')}</th>
                       <th scope="col" className="align-middle text-center">Status</th>
-                      <th scope="col" className="align-middle text-center">Action</th>
+                      <th scope="col" className="align-middle text-center">{t('action')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -265,7 +265,7 @@ export default function TransactionAdmin() {
             ) : (
               <div className="text-center pt-5">
                 <img src={imgEmpty} className="img-fluid" style={{ width: "40%" }} alt="empty" />
-                <div className="mt-3">No Transactions</div>
+                <div className="mt-3">{t('no_trx')}</div>
               </div>
             )}
           </Col>

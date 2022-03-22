@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Masonry from "react-masonry-css";
 import { Container, Row, Col, Stack } from "react-bootstrap";
-
+import { useTranslation } from "react-i18next";
 
 import Navbar from "../components/Navbar";
 import Jumbotron from "../components/Jumbotron";
@@ -13,6 +13,7 @@ import { API } from "../config/api";
 
 
 export default function Product() {
+  const { t } = useTranslation();
   const title = "Home";
   document.title = "WaysBucks | " + title;
 
@@ -45,7 +46,7 @@ export default function Product() {
       <Container className="mt-5">
         <Row>
           <Col>
-            <h2 className="fw-9 text-red">Let's Order!</h2>
+            <h2 className="fw-9 text-red">{t('products')}</h2>
           </Col>
         </Row>
         <Row className="my-4">
@@ -63,7 +64,7 @@ export default function Product() {
             <Col sm="10">
               <div className="text-center pt-5">
                 <img src={imgEmpty} className="img-fluid" style={{ width: "40%" }} alt="empty" />
-                <div className="mt-3">No data product</div>
+                <div className="mt-3">{t('no_data')}</div>
               </div>
             </Col>
           )}

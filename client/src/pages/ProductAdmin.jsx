@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 import rupiahFormat from "rupiah-format";
-
 import NavbarAdmin from "../components/NavbarAdmin";
 import DeleteData from "../components/modal/DeleteData";
-
 import imgEmpty from "../assets/empty.svg";
-
 import { API } from "../config/api";
 
 export default function ProductAdmin() {
+  const { t } = useTranslation();
   let history = useHistory();
 
   const title = "Products";
@@ -83,11 +82,11 @@ export default function ProductAdmin() {
       <Container className="py-5">
         <Row>
           <Col xs="6">
-            <div className="h1 mb-4 fw-9 text-red">Product List</div>
+            <div className="h1 mb-4 fw-9 text-red">{t('product_list')}</div>
           </Col>
           <Col xs="6" className="text-end">
             <Button onClick={addProduct} className="btn-success" style={{ width: "200px" }}>
-              Add Product
+              {t('add_product')}
             </Button>
           </Col>
           <Col xs="12">
@@ -99,10 +98,10 @@ export default function ProductAdmin() {
                       <th width="2%" className="text-center">
                         No
                       </th>
-                      <th className="text-center">Photo</th>
-                      <th className="text-center">Product Name</th>
-                      <th className="text-center">Price</th>
-                      <th className="text-center">Action</th>
+                      <th className="text-center">{t('image')}</th>
+                      <th className="text-center">{t('prod_name')}</th>
+                      <th className="text-center">{t('price')}</th>
+                      <th className="text-center">{t('action')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -136,7 +135,7 @@ export default function ProductAdmin() {
                               className="btn-sm btn-success me-2"
                               style={{ width: "135px" }}
                             >
-                              Edit
+                              {t('edit')}
                             </Button>
                             <Button
                               onClick={() => {
@@ -145,7 +144,7 @@ export default function ProductAdmin() {
                               className="btn-sm btn-danger"
                               style={{ width: "135px" }}
                             >
-                              Delete
+                              {t('delete')}
                             </Button>
                           </td>
                         </tr>
@@ -157,7 +156,7 @@ export default function ProductAdmin() {
             ) : (
               <div className="text-center pt-5">
                 <img src={imgEmpty} className="img-fluid" style={{ width: "40%" }} alt="empty" />
-                <div className="mt-3">No data product</div>
+                <div className="mt-3">{t('no_data')}</div>
               </div>
             )}
           </Col>

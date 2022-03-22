@@ -2,14 +2,13 @@ import React, { useContext, useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useParams, useHistory } from "react-router";
 import { UserContext } from "../context/userContext";
-
+import { useTranslation } from "react-i18next";
 import Navbar from "../components/Navbar";
-
 import { API } from "../config/api";
 
 export default function UpdateProfile() {
+  const { t } = useTranslation();
   let history = useHistory();
-
   const title = "Update Profile";
   document.title = "WaysBucks | " + title;
 
@@ -97,28 +96,28 @@ export default function UpdateProfile() {
           <Col xs="1"></Col>
           <Col xs="6">
             <form onSubmit={handleSubmit}>
-              <h3 className="text-red fw-9">Update Profile</h3>
+              <h3 className="text-red fw-9">{t('update_profile')}</h3>
               <div className="form-group my-4 form-red" controlid="formGroupName">
-                <input className="form-control" type="text" placeholder="Name" name="name" onChange={handleChange} value={form.name} />
+                <input className="form-control" type="text" placeholder={t('name')} name="name" onChange={handleChange} value={form.name} />
               </div>
               <div className="form-group my-4 form-red" controlid="formGroupEmail">
-                <input className="form-control" type="email" placeholder="Email" name="email" onChange={handleChange} value={form.email} />
+                <input className="form-control" type="email" placeholder={t('email')} name="email" onChange={handleChange} value={form.email} />
               </div>
               <div className="form-group my-4 form-red" controlid="formGroupPassword">
-                <input className="form-control" type="password" placeholder="Password" name="password" onChange={handleChange} value={form.password} />
+                <input className="form-control" type="password" placeholder={t('password')} name="password" onChange={handleChange} value={form.password} />
               </div>
               <div className="form-group my-4 form-red" controlid="formGroupFile">
                 <input type="file" id="upload" name="image" onChange={handleChange} className="form-control" />
               </div>
               <div className="d-grid gap-2 mt-4">
                 <Button type="submit" className="form-control btn btn-red" size="md">
-                  Update Profile
+                  {t('save')}
                 </Button>
               </div>
             </form>
             <div className="mt-4">
               <Button variant="secondary" className="form-control btn" size="sm" onClick={handleCancel}>
-                Cancel
+                {t('cancel')}
               </Button>
             </div>
           </Col>

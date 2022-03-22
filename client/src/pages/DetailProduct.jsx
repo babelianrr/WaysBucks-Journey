@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import rupiahFormat from "rupiah-format";
 import { UserContext } from "../context/userContext";
+import { useTranslation } from "react-i18next";
 
 import Navbar from "../components/Navbar";
 import ToppingCard from "../components/card/ToppingCard";
@@ -10,6 +11,7 @@ import ToppingCard from "../components/card/ToppingCard";
 import { API } from "../config/api";
 
 export default function DetailProduct() {
+  const { t } = useTranslation();
   let history = useHistory();
   let { id } = useParams();
 
@@ -65,7 +67,7 @@ export default function DetailProduct() {
   let price = product.price;
   if (toppingId == undefined) {
     let toppingPrice = 0
-    price += toppingPrice 
+    price += toppingPrice
   } else {
     let toppingPrice = toppings[toppingId - 1].price;
     price += toppingPrice
@@ -133,7 +135,7 @@ export default function DetailProduct() {
             <p className="text-brown fs-18">{rupiahFormat.convert(product.price)}</p>
             <hr className="hr-brown" />
             <form onSubmit={handleSubmit}>
-              <h4 className="text-brown fs-9">Select Topping</h4>
+              <h4 className="text-brown fs-9">{t('select_topping')}</h4>
               <input type="hidden" name="userId" value={state.user.id} onChange={handleChange} />
               <input type="hidden" name="beverageId" value={product.id} onChange={handleChange} />
               <input type="hidden" name="price" value={price} onChange={handleChange} />
@@ -148,7 +150,7 @@ export default function DetailProduct() {
                 ) : (
                   <Col>
                     <div className="text-center pt-5">
-                      <div className="mt-3">No Toppings In Stock</div>
+                      <div className="mt-3">{t('no_data')}</div>
                     </div>
                   </Col>
                 )}
@@ -159,13 +161,13 @@ export default function DetailProduct() {
               </div>
               <div className="d-grid gap-2 mt-2">
                 <button type="submit" className="btn btn-red">
-                  Buy
+                  {t('buy')}
                 </button>
               </div>
             </form>
             <div className="mt-4">
               <button className="form-control btn btn-secondary btn-sm" onClick={handleCancel}>
-                Cancel
+                {t('cancel')}
               </button>
             </div>
           </Col>
