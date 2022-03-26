@@ -14,8 +14,8 @@ const LangSelector = () => {
     <div onChange={changeLanguage}>
       <label htmlFor='language'>
         <select className="form-select form-select-sm" name="language" id="language">
-          <option value="en">English</option>
-          <option value="id">Bahasa Indonesia</option>
+          <option value="en" checked={selectedLang === en}>English</option>
+          <option value="id" checked={selectedLang === id}>Bahasa Indonesia</option>
         </select>
       </label>
     </div>
