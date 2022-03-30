@@ -28,7 +28,7 @@ export default function ProductAdmin() {
   const getProducts = async () => {
     try {
       const response = await API.get("/beverages");
-      setProducts(response.data.data.products);
+      setProducts(response.data.products);
     } catch (error) {
       console.log(error);
     }
@@ -135,7 +135,7 @@ export default function ProductAdmin() {
                               className="btn-sm btn-success me-2"
                               style={{ width: "135px" }}
                             >
-                              {t('edit')}
+                              {t('update')}
                             </Button>
                             <Button
                               onClick={() => {

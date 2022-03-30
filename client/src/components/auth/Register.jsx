@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import { Alert } from "react-bootstrap";
-
+import React, { useState } from "react";
+import { useAlert } from "react-alert";
+import { useTranslation } from "react-i18next";
 import { API } from "../../config/api";
 
 export default function Register() {
-
-  const title = "Register";
-  document.title = "WaysBucks | " + title;
+  const { t } = useTranslation();
+  const alert = useAlert();
 
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
@@ -25,73 +24,43 @@ export default function Register() {
   };
 
   const handleSubmit = async (e) => {
-
     try {
-
       e.preventDefault();
-
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
-
       const body = JSON.stringify(form);
-
       const response = await API.post("/register", body, config);
-
-      if (response.data.status === "Success") {
-
-        const alert = (
-          <Alert variant="success" className="py-1">
-            Success
-          </Alert>
-        );
-
-        setMessage(alert);
-
+      if (response.data.status === 200) {
+        return alert.info("Account already exist!");
+      } else if (response.data.status === 201) {
+        alert.success("Account has been registered!");
         setForm({
           name: "",
           email: "",
           password: "",
         });
-
       } else {
-
-        const alert = (
-          <Alert variant="danger" className="py-1">
-            Failed
-          </Alert>
-        );
-
-        setMessage(alert);
+        alert.error("Account already exist");
       }
-
     } catch (error) {
-
-      const alert = (
-        <Alert variant="danger" className="py-1">
-          {error}
-        </Alert>
-      );
-
-      setMessage(alert);
-
+      alert.error("An error occurred!");
       console.log(error);
     }
-
   };
 
   return (
     <div>
       <div className="container">
-        <h1 className="mb-4 text-red fw-9">Register</h1>
+        <h1 className="mb-4 text-red fw-9">{t('register')}</h1>
         {message && message}
         <form onSubmit={handleSubmit}>
           <div className="form-group mb-4 form-red" controlid="formGroupName">
             <input
               type="text"
-              placeholder="Name"
+              placeholder={t('name')}
               value={name}
               name="name"
               onChange={handleChange}
@@ -101,7 +70,7 @@ export default function Register() {
           <div className="form-group mb-3 form-red">
             <input
               type="email"
-              placeholder="Email"
+              placeholder={t('email')}
               value={email}
               name="email"
               onChange={handleChange}
@@ -111,7 +80,7 @@ export default function Register() {
           <div className="form-group mb-3 form-red">
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t('password')}
               value={password}
               name="password"
               onChange={handleChange}
@@ -120,7 +89,7 @@ export default function Register() {
           </div>
           <div className="form-group mb-3">
             <button className="form-control btn btn-red" type="submit">
-              Register
+              {t('register')}
             </button>
           </div>
         </form>

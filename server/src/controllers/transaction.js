@@ -1,4 +1,3 @@
-// import necessary model here
 const { transaction, user, beverage, topping } = require("../../models");
 
 exports.getTransactions = async (req, res) => {
@@ -34,9 +33,7 @@ exports.getTransactions = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        transactions
-      }
+      transactions
     })
 
   } catch (error) {
@@ -50,7 +47,7 @@ exports.getTransactions = async (req, res) => {
   }
 }
 
-// get transaction where id is user id
+// get a transaction where the id is user id
 exports.getTransaction = async (req, res) => {
   try {
     const { id } = req.params
@@ -104,9 +101,7 @@ exports.getTransaction = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        transactions
-      }
+      transactions
     })
 
   } catch (error) {
@@ -120,7 +115,7 @@ exports.getTransaction = async (req, res) => {
   }
 }
 
-// get transaction where id is transaction id
+// get a transaction where the id is transaction id
 exports.getTransactionn = async (req, res) => {
   try {
     const { id } = req.params
@@ -174,9 +169,7 @@ exports.getTransactionn = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        transactions
-      }
+      transactions
     })
 
   } catch (error) {
@@ -190,14 +183,13 @@ exports.getTransactionn = async (req, res) => {
   }
 }
 
-// get transaction where status is incomplete
+// get all transactions where status is incomplete
 exports.getTransactionx = async (req, res) => {
   try {
-    const status = "Incomplete"
 
     let transactions = await transaction.findAll({
       where: {
-        status: status
+        status: "Incomplete"
       },
       include: [
         {
@@ -244,9 +236,7 @@ exports.getTransactionx = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        transactions
-      }
+      transactions
     })
 
   } catch (error) {

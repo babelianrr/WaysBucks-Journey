@@ -39,7 +39,7 @@ export default function TransactionAdmin() {
   const getTransactions = async () => {
     try {
       const response = await API.get("/transactions");
-      setTrx(response.data.data.transactions);
+      setTrx(response.data.transactions);
     } catch (error) {
       console.log(error);
     }
@@ -56,9 +56,6 @@ export default function TransactionAdmin() {
   const changePage = ({ selected }) => {
     setPage(selected);
   };
-  /*
-
-  */
 
   const handleApprove = (id) => {
     setIdApprove(id);
@@ -67,14 +64,13 @@ export default function TransactionAdmin() {
 
   const approveById = async (id) => {
     try {
-      const delivering = "Delivering"
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
       const data = {
-        status: delivering
+        status: "Delivering"
       }
       const body = JSON.stringify(data);
       await API.patch(`/transaction/${id}`, body, config);
@@ -99,14 +95,13 @@ export default function TransactionAdmin() {
 
   const declineById = async (id) => {
     try {
-      const declined = "Declined"
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
       const data = {
-        status: declined
+        status: "Declined"
       }
       const body = JSON.stringify(data);
       await API.patch(`/transaction/${id}`, body, config);

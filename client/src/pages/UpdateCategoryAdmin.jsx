@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useParams, useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
+import { useAlert } from "react-alert";
 import NavbarAdmin from "../components/NavbarAdmin";
 import { API } from "../config/api";
 
 export default function UpdateCategoryAdmin() {
+  const alert = useAlert();
   const { t } = useTranslation();
   const title = "Update Topping";
   document.title = "WaysBucks | " + title;
@@ -23,13 +25,14 @@ export default function UpdateCategoryAdmin() {
   const getCategory = async (id) => {
     try {
       const response = await API.get("/topping/" + id);
-      setPreview(response.data.data.product.image);
+      setPreview(response.data.product.image);
       setForm({
         ...form,
-        name: response.data.data.product.name,
-        price: response.data.data.product.price,
+        name: response.data.product.name,
+        price: response.data.product.price,
+        image: response.data.product.image
       });
-      setCategory(response.data.data.product);
+      setCategory(response.data.product);
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +41,7 @@ export default function UpdateCategoryAdmin() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.type === "file" ? e.target.files[0] : e.target.value,
+      [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value
     });
 
     if (e.target.type === "file") {
@@ -67,14 +70,15 @@ export default function UpdateCategoryAdmin() {
       const response = await API.patch("/topping/" + category.id, formData, config);
       console.log(response.data);
 
-      history.push("/category-admin");
+      history.push("/topping-admin");
     } catch (error) {
+      alert.error("An error occurred!")
       console.log(error);
     }
   };
 
   const handleCancel = () => {
-    history.push("/product-admin");
+    history.push("/topping-admin");
   };
 
   useEffect(() => {

@@ -24,9 +24,7 @@ exports.getUsers = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        users
-      }
+      users
     })
 
   } catch (error) {
@@ -53,7 +51,7 @@ exports.getUser = async (req, res) => {
         id
       },
       attributes: {
-        exclude: ["createdAt", "updatedAt"]
+        exclude: ["password", "createdAt", "updatedAt"]
       }
     })
 
@@ -68,10 +66,7 @@ exports.getUser = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        user: data[0]
-      }
-
+      data: data[0]
     })
 
   } catch (error) {
@@ -150,9 +145,7 @@ exports.updateUser = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        user: newData[0]
-      }
+      user: newData[0]
     })
 
   } catch (error) {

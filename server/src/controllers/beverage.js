@@ -1,15 +1,14 @@
 const { beverage } = require("../../models")
+const fs = require("fs");
 
 exports.getBeverages = async (req, res) => {
 
   try {
 
     let products = await beverage.findAll({
-
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       }
-
     })
 
     products = JSON.parse(JSON.stringify(products))
@@ -23,15 +22,12 @@ exports.getBeverages = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        products
-      }
+      products
     })
 
   } catch (error) {
 
     console.log(error)
-
     res.status(500).send({
       status: "Failed",
       message: "Server Error",
@@ -67,9 +63,7 @@ exports.getBeverage = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        product: product[0]
-      }
+      product: product[0]
     })
 
   } catch (error) {
@@ -105,9 +99,7 @@ exports.addBeverages = async (req, res) => {
 
     res.status(201).send({
       status: "Success",
-      data: {
-        product
-      }
+      product
     })
 
   } catch (error) {
@@ -117,7 +109,6 @@ exports.addBeverages = async (req, res) => {
       status: "Failed",
       message: "Server Error",
     })
-
   }
 }
 
@@ -127,8 +118,27 @@ exports.editBeverage = async (req, res) => {
 
     const { id } = req.params
 
+    const oldProduct = await beverage.findOne({
+      where: {
+        id
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      }
+    });
+
+    const oldImage = `uploads/${oldProduct.image}`
+
+    fs.unlink(oldImage, (err) => {
+      if (err) {
+        throw err
+      }
+    });
+
     await beverage.update({
-      name: req.body.name, price: req.body.price, image: req.file.filename
+      name: req.body.name,
+      price: req.body.price,
+      image: req.file.filename
     }, {
       where: {
         id
@@ -155,9 +165,7 @@ exports.editBeverage = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        product: product[0]
-      }
+      product: product[0]
     })
 
   } catch (error) {
@@ -179,6 +187,23 @@ exports.delBeverage = async (req, res) => {
 
     const { id } = req.params
 
+    const product = await beverage.findOne({
+      where: {
+        id
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      }
+    });
+
+    const oldImage = `uploads/${product.image}`
+
+    fs.unlink(oldImage, (err) => {
+      if (err) {
+        throw err
+      }
+    });
+
     await beverage.destroy({
       where: {
         id
@@ -195,7 +220,6 @@ exports.delBeverage = async (req, res) => {
   } catch (error) {
 
     console.log(error)
-
     res.status(500).send({
       status: "failed",
       message: "Server Error",

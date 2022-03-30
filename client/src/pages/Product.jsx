@@ -22,7 +22,7 @@ export default function Product() {
   const getProducts = async () => {
     try {
       const response = await API.get("/beverages");
-      setProducts(response.data.data.products);
+      setProducts(response.data.products);
     } catch (error) {
       console.log(error);
     }

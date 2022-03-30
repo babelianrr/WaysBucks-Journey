@@ -96,7 +96,7 @@ export default function AddProductAdmin() {
           <Col xs="4">
             {preview && (
               <div>
-                <img src={preview} alt="preview" className="img-fluid card" />
+                <img src={preview} alt="preview" className="img-fluid card w-100" />
               </div>
             )}
           </Col>

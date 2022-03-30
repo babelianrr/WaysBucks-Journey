@@ -7,6 +7,7 @@
   "products": "Products",
   "login": "Log In",
   "register": "Register",
+  "name": "Name",
   "email": "Email",
   "password": "Password",
   "logout": "Log Out",

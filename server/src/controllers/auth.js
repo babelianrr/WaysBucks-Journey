@@ -21,20 +21,26 @@ exports.register = async (req, res) => {
     })
 
   try {
-
-    const salt = await bcrypt.genSalt(10)
-
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
-
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const alreadyExist = await user.findOne({
+      where: { email: req.body.email }
+    });
+    if (alreadyExist) {
+      return res.status(200).send({
+        message: "User already exist"
+      })
+    };
     const newUser = await user.create({
       name: req.body.name,
       email: req.body.email,
-      password: hashedPassword
-    })
+      password: hashedPassword,
+      status: "customer",
+    });
 
     const token = jwt.sign({ id: user.id }, process.env.TOKEN_KEY)
 
-    res.status(200).send({
+    res.status(201).send({
       status: "Success",
       data: {
         name: newUser.name,

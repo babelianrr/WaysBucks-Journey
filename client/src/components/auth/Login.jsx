@@ -2,15 +2,14 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import { useHistory } from "react-router-dom";
 import { Alert } from "react-bootstrap";
+import { useAlert } from "react-alert";
 import { useTranslation } from 'react-i18next';
 import { API } from "../../config/api";
 
 export default function Login() {
   const { t } = useTranslation();
+  const alert = useAlert();
   let history = useHistory();
-
-  const title = "Login";
-  document.title = "WaysBucks | " + title;
 
   const [state, dispatch] = useContext(UserContext);
 
@@ -32,37 +31,26 @@ export default function Login() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
-
       const body = JSON.stringify(form);
-
       const response = await API.post("/login", body, config);
-
       if (response?.status === 200) {
         dispatch({
           type: "LOGIN_SUCCESS",
           payload: response.data.data,
         });
-
         if (response.data.data.role === "admin") {
           history.push("/transaction-admin");
         } else {
           history.push("/");
         }
-
       }
     } catch (error) {
-      const alert = (
-        <Alert variant="danger" className="py-1">
-          Login failed
-        </Alert>
-      );
-      setMessage(alert);
+      alert.error("Credentials does not match!")
       console.log(error);
     }
   };

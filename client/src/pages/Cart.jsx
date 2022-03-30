@@ -58,7 +58,7 @@ export default function Cart() {
   const getTransactions = async () => {
     try {
       const response = await API.get("/transaction/" + state.user.id);
-      setTransactions(response.data.data.transactions);
+      setTransactions(response.data.transactions);
       setForm({
         ...form,
         userId: transactions.userId,

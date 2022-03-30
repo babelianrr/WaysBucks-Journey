@@ -32,7 +32,7 @@ export default function CategoryAdmin() {
   const getCategories = async () => {
     try {
       const response = await API.get("/toppings");
-      setProducts(response.data.data.products);
+      setProducts(response.data.products);
     } catch (error) {
       console.log(error);
     }

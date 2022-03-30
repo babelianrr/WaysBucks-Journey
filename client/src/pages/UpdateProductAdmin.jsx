@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useParams, useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
+import { useAlert } from "react-alert";
 import NavbarAdmin from "../components/NavbarAdmin";
-
 import { API } from "../config/api";
 
 export default function UpdateProductAdmin() {
-  const {t} = useTranslation();
+  const alert = useAlert();
+  const { t } = useTranslation();
   const title = "Update Product";
   document.title = "WaysBucks | " + title;
 
@@ -24,14 +25,14 @@ export default function UpdateProductAdmin() {
   const getProduct = async (id) => {
     try {
       const response = await API.get("/beverage/" + id);
-      setPreview(response.data.data.product.image);
+      setPreview(response.data.product.image);
       setForm({
         ...form,
-        name: response.data.data.product.name,
-        price: response.data.data.product.price,
-        image: response.data.data.product.image
+        name: response.data.product.name,
+        price: response.data.product.price,
+        image: response.data.product.image
       });
-      setProduct(response.data.data.product);
+      setProduct(response.data.product);
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +41,7 @@ export default function UpdateProductAdmin() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.type === "file" ? e.target.files[0] : e.target.value,
+      [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value
     });
 
     if (e.target.type === "file") {
@@ -67,10 +68,11 @@ export default function UpdateProductAdmin() {
       formData.set("price", form.price);
 
       const response = await API.patch("/beverage/" + product.id, formData, config);
-      console.log(response);
+      console.log(response.data);
 
       history.push("/product-admin");
     } catch (error) {
+      alert.error("An error occurred!");
       console.log(error);
     }
   };
@@ -118,7 +120,7 @@ export default function UpdateProductAdmin() {
           <Col xs="4">
             {preview && (
               <div>
-                <img src={preview} alt="preview" className="img-fluid card" />
+                <img src={preview} alt="preview" className="img-fluid card w-100" />
               </div>
             )}
           </Col>

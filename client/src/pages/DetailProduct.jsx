@@ -33,7 +33,7 @@ export default function DetailProduct() {
   const getProduct = async (id) => {
     try {
       const response = await API.get("/beverage/" + id);
-      setProduct(response.data.data.product);
+      setProduct(response.data.product);
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +47,7 @@ export default function DetailProduct() {
   const getToppings = async (id) => {
     try {
       const response = await API.get("/toppings");
-      setToppings(response.data.data.products);
+      setToppings(response.data.products);
     } catch (error) {
       console.log(error);
     }
@@ -128,7 +128,7 @@ export default function DetailProduct() {
         <Row>
           <Col md="1"></Col>
           <Col md="4">
-            <img src={product.image} className="img-fluid" alt={product.name} />
+            <img src={product.image} className="img-fluid w-100" alt={product.name} />
           </Col>
           <Col md="6">
             <h2 className="text-red fw-9">{product.name}</h2>
@@ -144,7 +144,7 @@ export default function DetailProduct() {
                 {toppings.length !== 0 ? (
                   toppings?.map((item, index) => (
                     <>
-                      <ToppingCard item={item} key={index} /><input type="radio" name="toppingId" value={item.id} checked={toppingId == item.id} onChange={handleChangeToppingId} />
+                      <ToppingCard item={item} key={index} /><input type="radio" name="toppingId" className="form-check-input" value={item.id} checked={toppingId == item.id} onChange={handleChangeToppingId} />
                     </>
                   ))
                 ) : (
@@ -159,17 +159,15 @@ export default function DetailProduct() {
                 <div className="col text-brown fs-18 fw-9">Subtotal</div>
                 <div className="col text-brown fs-18 fw-9 text-end">{rupiahFormat.convert(price)}</div>
               </div>
-              <div className="d-grid gap-2 mt-2">
+              <div className="d-grid gap-2">
                 <button type="submit" className="btn btn-red">
                   {t('buy')}
                 </button>
+                <button className="btn btn-secondary" onClick={handleCancel}>
+                  {t('cancel')}
+                </button>
               </div>
             </form>
-            <div className="mt-4">
-              <button className="form-control btn btn-secondary btn-sm" onClick={handleCancel}>
-                {t('cancel')}
-              </button>
-            </div>
           </Col>
         </Row>
       </Container>

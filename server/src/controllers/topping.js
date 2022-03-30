@@ -1,4 +1,5 @@
 const { topping } = require("../../models")
+const fs = require("fs");
 
 exports.getToppings = async (req, res) => {
 
@@ -21,9 +22,7 @@ exports.getToppings = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        products
-      }
+      products
     })
 
   } catch (error) {
@@ -64,16 +63,13 @@ exports.getTopping = async (req, res) => {
 
     res.status(200).send({
       status: "success",
-      data: {
-        product: product[0]
-      }
+      product: product[0]
     })
 
   } catch (error) {
 
     console.log(error)
-
-    res.send({
+    res.status(500).send({
       status: "Failed",
       message: "Server Error",
     })
@@ -103,22 +99,17 @@ exports.addToppings = async (req, res) => {
 
     res.status(201).send({
       status: "Success",
-      data: {
-        product
-      }
+      product
     })
 
   } catch (error) {
 
     console.log(error)
-
     res.status(500).send({
       status: "failed",
       message: "Server Error",
     })
-
   }
-
 }
 
 exports.editTopping = async (req, res) => {
@@ -126,6 +117,23 @@ exports.editTopping = async (req, res) => {
   try {
 
     const { id } = req.params
+
+    const oldProduct = await topping.findOne({
+      where: {
+        id
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      }
+    });
+
+    const oldImage = `uploads/${oldProduct.image}`
+
+    fs.unlink(oldImage, (err) => {
+      if (err) {
+        throw err
+      }
+    });
 
     await topping.update({
       name: req.body.name,
@@ -157,9 +165,7 @@ exports.editTopping = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      data: {
-        product: product[0]
-      }
+      product: product[0]
     })
 
   } catch (error) {
@@ -180,6 +186,23 @@ exports.delTopping = async (req, res) => {
   try {
 
     const { id } = req.params
+
+    const product = await beverage.findOne({
+      where: {
+        id
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      }
+    });
+
+    const oldImage = `uploads/${product.image}`
+
+    fs.unlink(oldImage, (err) => {
+      if (err) {
+        throw err
+      }
+    });
 
     await topping.destroy({
       where: {

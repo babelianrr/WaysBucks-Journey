@@ -31,7 +31,7 @@ export default function Profile() {
   const getProfile = async (id) => {
     try {
       const response = await API.get("/profile/" + state.user.id);
-      setProfile(response.data.data.user);
+      setProfile(response.data.user);
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +40,7 @@ export default function Profile() {
   const getTransactions = async () => {
     try {
       const response = await API.get("/transaction/" + state.user.id);
-      setTransactions(response.data.data.transactions);
+      setTransactions(response.data.transactions);
     } catch (error) {
       console.log(error);
     }
