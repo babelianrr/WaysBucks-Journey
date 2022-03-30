@@ -7,7 +7,7 @@ export default function CartBadge() {
   const getTransactions = async () => {
     try {
       const response = await API.get("/transactionx");
-      setTrx(response.data.data.transactions);
+      setTrx(response.data.transactions);
     } catch (error) {
       console.log(error);
     }

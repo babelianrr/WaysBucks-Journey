@@ -111,13 +111,10 @@ exports.updateUser = async (req, res) => {
   try {
 
     const { id } = req.params
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
     await user.update({
       name: req.body.name,
       email: req.body.email,
-      password: hashedPassword,
       image: req.file.filename
     }, {
       where: {

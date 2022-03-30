@@ -34,7 +34,7 @@ export default function Navbar() {
   const getProfile = async (id) => {
     try {
       const response = await API.get("/profile/" + state.user.id);
-      setProfile(response.data.data.user);
+      setProfile(response.data.data);
     } catch (error) {
       console.log(error);
     }

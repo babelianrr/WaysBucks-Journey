@@ -31,7 +31,7 @@ export default function Profile() {
   const getProfile = async (id) => {
     try {
       const response = await API.get("/profile/" + state.user.id);
-      setProfile(response.data.user);
+      setProfile(response.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -51,8 +51,6 @@ export default function Profile() {
     getTransactions();
   }, []);
 
-  console.log(transactions);
-
   const handleUpdate = () => {
     history.push("/update-profile/" + state.user.id);
   }
@@ -64,14 +62,13 @@ export default function Profile() {
 
   const completeById = async (id) => {
     try {
-      const completed = "Completed"
       const config = {
         headers: {
           "Content-type": "application/json",
         },
       };
       const data = {
-        status: completed
+        status: "Completed"
       }
       const body = JSON.stringify(data);
       await API.patch(`/transaction/${id}`, body, config);
@@ -142,7 +139,7 @@ export default function Profile() {
             <div className="h1 mb-4 text-red fw-9">{t('my_profile')}</div>
             <Row>
               <Col md="6">
-                <img src={profile?.image ? profile.image : imgBlank} className="img-fluid rounded" alt="avatar" />
+                <img src={profile.image ? profile.image : imgBlank} className="img-fluid rounded" alt="avatar" />
               </Col>
               <Col md="6">
                 <div className="fs-4 text-red fw-9">{t('name')}</div>

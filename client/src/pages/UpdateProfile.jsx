@@ -3,10 +3,12 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useParams, useHistory } from "react-router";
 import { UserContext } from "../context/userContext";
 import { useTranslation } from "react-i18next";
+import { useAlert } from "react-alert";
 import Navbar from "../components/Navbar";
 import { API } from "../config/api";
 
 export default function UpdateProfile() {
+  const alert = useAlert();
   const { t } = useTranslation();
   let history = useHistory();
   const title = "Update Profile";
@@ -20,23 +22,22 @@ export default function UpdateProfile() {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    password: "",
     image: "",
   });
 
   const getUser = async (id) => {
     try {
       const response = await API.get("/profile/" + id);
-      setUser(response.data.data.user);
-      setPreview(response.data.data.user.image);
+      setUser(response.data.data);
+      setPreview(response.data.data.image);
       setForm({
         ...form,
-        name: response.data.user.name,
-        email: response.data.user.email,
-        password: response.data.user.password,
-        image: response.data.user.image
+        name: response.data.data.name,
+        email: response.data.data.email,
+        image: response.data.data.image
       });
     } catch (error) {
+      alert.error("An error occurred!");
       console.log(error);
     }
   };
@@ -44,7 +45,7 @@ export default function UpdateProfile() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.type == "file" ? e.target.files[0] : e.target.value,
+      [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value
     });
 
     if (e.target.type === "file") {
@@ -66,16 +67,18 @@ export default function UpdateProfile() {
       };
 
       const formData = new FormData();
-      formData.set("image", form.image[0], form.image[0].name);
+      if (form.image) {
+        formData.set("image", form?.image[0], form?.image[0]?.name);
+      }
       formData.set("name", form.name);
       formData.set("email", form.email);
-      formData.set("password", form.password);
 
       const response = await API.patch("/user/" + id, formData, config);
       console.log(response);
 
       history.push("/profile/" + state.user.id);
     } catch (error) {
+      alert.error("an error occurred!");
       console.log(error);
     }
   };
@@ -102,9 +105,6 @@ export default function UpdateProfile() {
               </div>
               <div className="form-group my-4 form-red" controlid="formGroupEmail">
                 <input className="form-control" type="email" placeholder={t('email')} name="email" onChange={handleChange} value={form.email} />
-              </div>
-              <div className="form-group my-4 form-red" controlid="formGroupPassword">
-                <input className="form-control" type="password" placeholder={t('password')} name="password" onChange={handleChange} value={form.password} />
               </div>
               <div className="form-group my-4 form-red" controlid="formGroupFile">
                 <input type="file" id="upload" name="image" onChange={handleChange} className="form-control" />
