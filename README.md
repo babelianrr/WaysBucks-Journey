@@ -11,12 +11,12 @@ I've fixed some codes to improve this project, thought there's still some bugs a
 ### What users can do:
 - Registering and logging in
 - Creating transactions
-- Checking profile (bug found on 0v.2-beta, can't access profile page)
+- Checking profile (can't access profile page fixed)
 
 ### What admins can do:
 - Checking and managing transactions
 - Adding & removing products
-- (new on v0.2-beta) Updating products
+- Updating products
 
 ### Known bugs
 - When switching language then navigating to other page, language selection changes into ENglish, thought the language still the same (to switch back to English just click the rendered language then click English again).
