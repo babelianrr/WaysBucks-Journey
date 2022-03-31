@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2022 at 10:30 AM
+-- Generation Time: Mar 31, 2022 at 05:56 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -35,15 +35,6 @@ CREATE TABLE `beverages` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `beverages`
---
-
-INSERT INTO `beverages` (`id`, `name`, `price`, `image`, `createdAt`, `updatedAt`) VALUES
-(1, 'Ice Coffee Palm Sugar', 27000, 'palmsugar.png', '2022-02-19 14:22:41', '2022-02-19 14:22:41'),
-(2, 'Ice Coffee Green Tea', 31000, 'greentea.png', '2022-02-20 12:26:56', '2022-02-20 12:26:56'),
-(3, 'Hanami Latte', 29000, 'latte.png', '2022-02-21 10:36:50', '2022-02-21 10:36:50');
 
 -- --------------------------------------------------------
 
@@ -80,19 +71,6 @@ CREATE TABLE `toppings` (
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `toppings`
---
-
-INSERT INTO `toppings` (`id`, `name`, `price`, `image`, `createdAt`, `updatedAt`) VALUES
-(1, 'Kiwi Popping Pearl', 5000, 'kiwi-pop-pearl.png', '2022-02-20 06:28:02', '2022-02-20 06:28:02'),
-(2, 'Bubble Tea Gelatin', 4000, 'bubble-tea-gelatin.png', '2022-02-24 12:29:21', '2022-02-24 12:29:21'),
-(3, 'Mango', 3500, 'mango.png', '2022-02-26 15:36:38', '2022-02-26 15:36:38'),
-(4, 'Green Coconut', 4500, 'green-coconut.png', '2022-02-26 15:38:13', '2022-02-26 15:38:13'),
-(5, 'Mango Boba', 4500, 'mango-boba.png', '2022-02-26 15:38:33', '2022-02-26 15:38:33'),
-(6, 'Billberry Boba', 4000, 'bill-berry-boba.png', '2022-02-26 15:39:05', '2022-02-26 15:39:05'),
-(7, 'Matcha Cantaloupe', 5500, 'matcha.png', '2022-02-26 15:39:46', '2022-02-26 15:39:46');
-
 -- --------------------------------------------------------
 
 --
@@ -114,15 +92,6 @@ CREATE TABLE `transactions` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transactions`
---
-
-INSERT INTO `transactions` (`id`, `userId`, `name`, `phone`, `address`, `postal`, `status`, `beverageId`, `qty`, `toppingId`, `price`, `createdAt`, `updatedAt`) VALUES
-(1, 2, 'Bayu Perkasa', '081234567890', 'Jl. Jendral Soedirman No. 1, Krenceng, Jakarta Selatan', '12000', 'Completed', 2, 1, 7, 36500, '2022-03-01 10:43:42', '2022-03-01 10:48:07'),
-(2, 2, 'Bayu Perkasa', '081234567890', 'Jl. Gatot Subroto No. 1', '12000', 'Completed', 2, 2, 6, 70000, '2022-03-18 03:19:03', '2022-03-18 03:22:43'),
-(3, 2, 'Bayu Perkasa', '081888888880', 'Jl. Indramayu No. 98', '19065', 'Waiting', 1, 1, 7, 32500, '2022-03-18 13:53:43', '2022-03-18 13:56:36');
 
 -- --------------------------------------------------------
 
@@ -147,7 +116,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `image`, `createdAt`, `updatedAt`) VALUES
 (1, 'Administrator', 'admin@tbc.net', '$2b$10$.1ROyEr8.ngimGZqGrwH2eoNPeSPIeG90QodNpe9rSN6sbcmyZz/6', 'admin', 'waysbucks.png', '2022-02-27 09:32:37', '2022-02-27 11:02:21'),
-(2, 'Bayu Perkasa', 'bayupks@tbc.net', '$2b$10$1/pe34KQjQ/W0GoGvR0QQeVpO52qbZkFaqVCu7nf5sfhXIW0f04FW', 'customer', '1647514109334-bayu.jpg', '2022-02-27 10:59:22', '2022-03-17 10:48:29');
+(2, 'Bayu Perkasa', 'bayupks@tbc.net', '$2b$10$1/pe34KQjQ/W0GoGvR0QQeVpO52qbZkFaqVCu7nf5sfhXIW0f04FW', 'customer', '1648637087003-bayu.jpg', '2022-02-27 10:59:22', '2022-03-30 10:44:47');
 
 --
 -- Indexes for dumped tables
@@ -195,25 +164,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `beverages`
 --
 ALTER TABLE `beverages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `toppings`
 --
 ALTER TABLE `toppings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
