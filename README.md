@@ -1,3 +1,5 @@
+Read Bahasa Indonesia version of README [here](https://github.com/babelianrr/waysbucks-app/blob/main/README-id.md)
+
 # WaysBucks
 The initial version of WaysBucks by babelianrr.
 I've fixed some codes to improve this project, thought there's still some bugs around.
