@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2022 at 05:56 AM
+-- Generation Time: Apr 10, 2022 at 12:30 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -35,6 +35,15 @@ CREATE TABLE `beverages` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `beverages`
+--
+
+INSERT INTO `beverages` (`id`, `name`, `price`, `image`, `createdAt`, `updatedAt`) VALUES
+(1, 'Ice Coffee Palm Sugar', 32000, '1649407218829-icecoffeepalmsugar.png', '2022-04-08 06:58:30', '2022-04-08 08:40:18'),
+(2, 'Ice Coffee Green Tea', 32000, '1649401124621-icecoffeegreentea.png', '2022-04-08 06:58:44', '2022-04-08 06:58:44'),
+(3, 'Hanami Latte', 31000, '1649401137267-hanamilatte.png', '2022-04-08 06:58:57', '2022-04-08 06:58:57');
 
 -- --------------------------------------------------------
 
@@ -71,6 +80,14 @@ CREATE TABLE `toppings` (
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `toppings`
+--
+
+INSERT INTO `toppings` (`id`, `name`, `price`, `image`, `createdAt`, `updatedAt`) VALUES
+(1, 'Coconut', 4000, '1649407387107-coconut.png', '2022-04-08 06:59:14', '2022-04-08 08:43:07'),
+(2, 'Mango', 5000, '1649407286668-mango.png', '2022-04-08 08:41:26', '2022-04-08 08:41:26');
+
 -- --------------------------------------------------------
 
 --
@@ -92,6 +109,15 @@ CREATE TABLE `transactions` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `userId`, `name`, `phone`, `address`, `postal`, `status`, `beverageId`, `qty`, `toppingId`, `price`, `createdAt`, `updatedAt`) VALUES
+(1, 2, 'Bayu Perkasa', '08123456789', 'Jl. Gatot Subroto Jakarta', '12000', 'Completed', 1, 1, 1, 34000, '2022-04-08 07:24:38', '2022-04-08 08:47:11'),
+(2, 2, NULL, NULL, NULL, NULL, 'Incomplete', 1, NULL, 1, 36000, '2022-04-08 08:48:37', '2022-04-08 08:48:37'),
+(3, 2, NULL, NULL, NULL, NULL, 'Incomplete', 2, NULL, 2, 37000, '2022-04-08 08:51:39', '2022-04-08 08:51:39');
 
 -- --------------------------------------------------------
 
@@ -164,19 +190,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `beverages`
 --
 ALTER TABLE `beverages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `toppings`
 --
 ALTER TABLE `toppings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
