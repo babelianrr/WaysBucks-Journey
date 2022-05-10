@@ -53,14 +53,14 @@ export default function Auth() {
       </div>
       <div className="container">
         <div className="jumbotron mt-5 p-4 mx-auto">
-          <p className="ms-5 mt-5 text-white fw-9 fre-60">WAYSBUCKS</p>
-          <p className="ms-5 text-white fw-3 fs-24">{t('jumbotron_header')}</p>
-          <p className="ms-5 mb-5 text-white fw-3 fs-18">
+          <p className="ps-xl-5 ms-5 mt-5 text-white fw-9 fre-60">WAYSBUCKS</p>
+          <p className="ps-xl-5 ms-5 text-white fw-3 fs-24">{t('jumbotron_header')}</p>
+          <p className="ps-xl-5 ms-5 mb-5 text-white fw-3 fs-18">
             {t('jumbotron_text1')}<br />
             {t('jumbotron_text2')} <br />
             {t('jumbotron_text3')}
           </p>
-          <p className="ms-5 mb-5 text-white fw-3 fs-18">{t('lets_order')}</p>
+          <p className="ps-xl-5 ms-5 mb-5 text-white fw-3 fs-18">{t('lets_order')}</p>
         </div>
       </div>
       <Modal show={showLogin} onHide={handleCloseLogin}>
